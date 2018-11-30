@@ -14,7 +14,7 @@ RUN apk add --no-cache php5-imap php5-phar geoip libmemcached openssl\
     && cd "$(pecl config-get temp_dir)/memcached" \
     && phpize \
     && ./configure --enable-memcached-igbinary \
-    && make && make install
+    && make && make install \
     && cd - \
     && pecl install geoip redis mongodb \
     && apk del .build-deps\
