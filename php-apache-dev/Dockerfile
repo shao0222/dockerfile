@@ -16,4 +16,6 @@ RUN apk add --no-cache php5-imap php5-phar geoip libmemcached openssl\
     && echo 'extension=memcached.so' > /etc/php5/conf.d/memcached.ini\
     && echo 'extension=redis.so' > /etc/php5/conf.d/redis.ini\
     && echo 'extension=mongodb.so' > /etc/php5/conf.d/mongodb.ini\
+    && echo "let &termencoding=&encoding" >> /etc/vim/vimrc\
+    && echo "set fileencodings=utf-8,gb18030,gbk,gb2312,big5" >> /etc/vim/vimrc\
     && docker-image-cleanup
