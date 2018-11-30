@@ -15,7 +15,7 @@ RUN apk add --no-cache php5-imap php5-phar geoip libmemcached openssl\
     && phpize \
     && ./configure --enable-memcached-igbinary \
     && make && make install
-    && cd -
+    && cd - \
     && pecl install geoip redis mongodb \
     && apk del .build-deps\
     && echo 'extension=geoip.so' > /etc/php5/conf.d/geoip.ini\
