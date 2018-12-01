@@ -18,7 +18,7 @@ RUN apk add --no-cache php5-imap php5-phar geoip libmemcached openssl\
     && make && make install \
     && cd - \
     && wget -O /tmp/tideways.tgz https://github.com/tideways/php-xhprof-extension/archive/v4.1.6.tar.gz \
-    && tar -xvzf tideways.tgz -C /tmp \
+    && tar -xvzf /tmp/tideways.tgz -C /tmp \
     && cd /tmp/php-xhprof-extension-4.1.6 \
     && phpize && ./configure \
     && make && make install \
