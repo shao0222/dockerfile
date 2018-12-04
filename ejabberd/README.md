@@ -43,7 +43,7 @@ Dockerfile to build an [ejabberd][] container image.
 
 ## Version
 
-Current Version: `18.03`
+Current Version: `18.04`
 
 *This brach use the Alpine Docker image. Alpine Linux has a basic DNS resolver. Resolving might fail if more than one DNS server is needed.*
 
