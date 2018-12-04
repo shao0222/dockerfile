@@ -34,12 +34,10 @@ register_all_groups() {
     #
     # sample:
     # - create two groups:
-    #   -e "EJABBERD_GROUPS=admin@example.com test@example.com"
-    for group in ${EJABBERD_GROUPS} ; do
-        local name=${group%%@*}
-        local host=${group#*@}
-
-        create_group ${name} ${host}
+    #   -e "EJABBERD_GROUPS=admin example.com groupname descript display
+    #       test@example.com"
+    echo "${EJABBERD_GROUPS}"|while read line;do
+       eval ${EJABBERDCTL} srg_create $line || true
     done
 }
 
@@ -49,19 +47,11 @@ register_all_group_members() {
     #
     # sample:
     # - add two users to groups:
-    #   -e "EJABBERD_GROUP_MEMBERS=user@xmpp.kx.gd:group@xmpp.kx.gd user2@xmpp.kx.gd:group@xmpp.kx.gd"
-
-    for member in ${EJABBERD_GROUP_MEMBERS} ; do
-        local user=${member%%:*}
-        local group=${user#*:}
-
-        local username=${user%%@*}
-        local userhost=${user#*@}
-
-        local groupname=${group%%@*}
-        local grouphost=${group#*@}
-
-        register_group_member ${username} ${userhost} ${groupname} ${grouphost}
+    #   -e "EJABBERD_GROUP_MEMBERS=user xmpp.kx.gd group xmpp.kx.gd 
+    #       user2 xmpp.kx.gd group xmpp.kx.gd"
+    
+    echo "${EJABBERD_GROUP_MEMBERS}" | while read line;do
+        eval ${EJABBERDCTL} srg_user_add $line || true
     done
 }
 
