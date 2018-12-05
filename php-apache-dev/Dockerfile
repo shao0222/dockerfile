@@ -31,4 +31,6 @@ RUN apk add --no-cache php5-imap php5-phar libmemcached openssl\
     && echo 'extension=tideways.so' > /etc/php5/conf.d/tideways.ini\
     && echo "let &termencoding=&encoding" >> /etc/vim/vimrc\
     && echo "set fileencodings=utf-8,gb18030,gbk,gb2312,big5" >> /etc/vim/vimrc\
+    && echo "set mouse-=a" >> /etc/vim/vimrc \
+    && docker-service disable postfix \
     && docker-image-cleanup
