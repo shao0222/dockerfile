@@ -8,17 +8,16 @@ RUN echo 'http://mirrors.aliyun.com/alpine/v3.5/main' > /etc/apk/repositories \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone
 
-RUN apk add --no-cache php5-imap php5-phar geoip libmemcached openssl\
-    && apk add --no-cache --virtual .build-deps gcc g++ make libffi-dev openssl-dev geoip-dev php5-dev php5-pear autoconf libmemcached-dev cyrus-sasl-dev \
+RUN apk add --no-cache php5-imap php5-phar libmemcached openssl\
+    && apk add --no-cache --virtual .build-deps gcc g++ make libffi-dev openssl-dev  php5-dev php5-pear autoconf libmemcached-dev cyrus-sasl-dev \
     && pecl install --onlyreqdeps --nobuild memcached-2.2.0 \
-    && pecl install geoip redis mongodb igbinary \
+    && pecl install redis mongodb igbinary \
     && cd "$(pecl config-get temp_dir)/memcached" \
     && phpize \
     && ./configure --enable-memcached-igbinary \
     && make && make install \
-    && cd - 
+    && cd - \
     && apk del .build-deps\
-    && echo 'extension=geoip.so' > /etc/php5/conf.d/geoip.ini\
     && echo 'extension=memcached.so' > /etc/php5/conf.d/memcached.ini\
     && echo 'extension=redis.so' > /etc/php5/conf.d/redis.ini\
     && echo 'extension=mongodb.so' > /etc/php5/conf.d/mongodb.ini\
