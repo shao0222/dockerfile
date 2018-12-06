@@ -17,6 +17,9 @@ log_rotate_size: 10485760
 log_rotate_count: 0
 log_rate_limit: 100
 
+{%- if env['EJABBERD_RESOURCE_CONFLICT'] %}
+resource_conflict: "{{ env['EJABBERD_RESOURCE_CONFLICT'] }}"
+{%- endif %}
 ## watchdog_admins:
 ##   - "bob@example.com"
 
