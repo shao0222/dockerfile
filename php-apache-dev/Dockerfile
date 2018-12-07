@@ -2,8 +2,7 @@ FROM webdevops/php-apache-dev:alpine-php5
 
 ENV TZ Asia/Shanghai
 
-RUN echo 'http://mirrors.aliyun.com/alpine/v3.5/main' > /etc/apk/repositories \
-    && echo 'http://mirrors.aliyun.com/alpine/v3.5/community' >> /etc/apk/repositories \
+RUN sed -r -i "s#dl-cdn.alpinelinux.org#mirrors.aliyun.com#g" /etc/apk/repositories \
     && apk add --no-cache tzdata \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone

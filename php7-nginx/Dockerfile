@@ -2,9 +2,7 @@ FROM webdevops/php-nginx:alpine-php7
 
 ENV TZ Asia/Shanghai
 
-RUN VERSION=$(docker-image-info dist-version) && VERSION=${VERSION%.*} \
-    && echo "http://mirrors.aliyun.com/alpine/v${VERSION}/main" > /etc/apk/repositories \
-    && echo "http://mirrors.aliyun.com/alpine/v${VERSION}/community" >> /etc/apk/repositories \
+RUN sed -r -i "s#dl-cdn.alpinelinux.org#mirrors.aliyun.com#g" /etc/apk/repositories \
     && apk add --no-cache tzdata \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone
