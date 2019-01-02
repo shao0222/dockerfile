@@ -7,6 +7,7 @@ COPY conf/ /opt/docker/
 RUN go-replace --mode=replace --regex -s '^\s*https?://.*?/'  -r "http://mirrors.aliyun.com/" -- /etc/apk/repositories \
     && apk update \
     && apk add tzdata \
+    && apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
     && apk add php5-imap php5-phar libmemcached openssl\
@@ -26,3 +27,5 @@ RUN go-replace --mode=replace --regex -s '^\s*https?://.*?/'  -r "http://mirrors
     && docker-service disable postfix ssh syslog \
     && /opt/docker/bin/bootstrap.sh \
     && docker-image-cleanup
+
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
